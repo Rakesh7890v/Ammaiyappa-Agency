@@ -12,7 +12,7 @@ const FoodOrder = () => {
   axios.defaults.withCredentials = true;
 
   const fetchFoods = () => {
-    axios.get('http://localhost:5000/foods')
+    axios.get('https://ammaiyappa-api-agency.vercel.app/foods')
       .then(result => {
         setFoods(result.data);
         console.log("OUTPUT:", result.data);
@@ -49,7 +49,7 @@ const FoodOrder = () => {
   };
 
   const handleDelete = (id) => {
-    axios.post('http://localhost:5000/delete', { id })
+    axios.post('https://ammaiyappa-api-agency.vercel.app/delete', { id })
       .then(result => {
         console.log(result);
         fetchFoods();
@@ -65,30 +65,42 @@ const FoodOrder = () => {
     }));
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('id', update._id);
-    formData.append('name', update.name);
-    formData.append('price', update.price);
-    formData.append('qnt', update.qnt);
-    formData.append('image', update.image);
-    formData.append('type', update.type);
-
-    axios.post('http://localhost:5000/update', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then(result => {
-        console.log(result);
-        setUpdate(null);
-        fetchFoods();
-        handleClose();
-      })
-      .catch(err => console.log(err));
+  const converToBase64 = (image) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (err) => reject(err);
+    });
   };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+  
+    const data = {
+      id: update._id,
+      name: update.name,
+      price: update.price,
+      qnt: update.qnt,
+      image: update.image,
+      type: update.type,
+    };
+  
+    try {
+      const response = await axios.put('https://ammaiyappa-api-agency.vercel.app/update', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
+      setUpdate(null);
+      fetchFoods();
+      handleClose();
+    } catch (err) {
+      console.error("Error updating data:", err);
+    }
+  };
+  
 
   return (
     <div>
@@ -161,6 +173,11 @@ const FoodOrder = () => {
               value={update.qnt}
               onChange={handleInputChange}
             />
+            {update.image && (
+              <div className="image-preview">
+                <img src={update.image} alt="Current food" style={{ width: '50px', height: '50px', objectFit: 'cover', marginLeft: "20px" }} />
+              </div>
+            )}
             <input
               type="file"
               name="image"

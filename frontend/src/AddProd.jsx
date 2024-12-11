@@ -36,7 +36,7 @@ const AddProd = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/addfoods', data, {
+      const response = await axios.post('https://ammaiyappa-api-agency.vercel.app/addfoods', data, {
         headers: {
           'Content-Type': 'application/json',
         },

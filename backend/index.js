@@ -51,6 +51,31 @@ app.get('/foods', (req, res) => {
         });
 });
 
+app.put('/update', async (req, res) => {
+    const { id, name, price, qnt, image, type } = req.body;
+  
+    if (!id || !name || !price || !qnt || !type) {
+      return res.status(400).json({ error: 'All fields except image are required' });
+    }
+  
+    try {
+      const updatedFood = await FoodModel.findByIdAndUpdate(
+        id,
+        { name, price, qnt, image, type },
+        { new: true }
+      );
+  
+      if (!updatedFood) {
+        return res.status(404).json({ error: 'Food not found' });
+      }
+  
+      res.status(200).json(updatedFood);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'An error occurred while updating the food' });
+    }
+});
+  
 
 app.post('/delete', (req, res) => {
     const {id} = req.body;

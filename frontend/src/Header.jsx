@@ -52,7 +52,7 @@ const Header = () => {
       {contact && (
         <div className="contacts">
           <i className="fas fa-times" onClick={handleTimes}></i>
-          <p>Mobile: +91 9952522117</p>
+          <p>Mobile: +91 8300605397</p>
           <p> LinkedIn:{" "} <a href="https://www.linkedin.com/in/ammaiyappa-agency-a4319a336/" target="_blank" rel="noopener noreferrer">ammaiyappa</a></p>
         </div>
       )}

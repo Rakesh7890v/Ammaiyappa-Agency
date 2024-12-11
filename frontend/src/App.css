@@ -82,7 +82,7 @@ body {
   box-shadow:  0 0 30px rgb(0, 0, 0, 0.2);
   margin: 10px;
   border-radius: 5px;
-  margin-top: 200px;
+  margin-top: 230px;
   left: 10px;
   white-space: nowrap;
 }
@@ -218,7 +218,7 @@ body {
   font-size: 0.8rem;
 }
 .filters {
-  margin: 10px 0px 0px 20px;
+  margin: 150px 0px 0px 20px;
 }
 .filters select {
   padding: 10px;

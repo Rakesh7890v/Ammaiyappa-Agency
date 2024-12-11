@@ -7,7 +7,7 @@ const FoodModel = require('./models/Foods');
 const app = express();
 const port = 5000;
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://ammaiyappa-agency.vercel.app',
     methods: 'GET,POST,PUT',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true
